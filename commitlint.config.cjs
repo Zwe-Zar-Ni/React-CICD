@@ -13,6 +13,12 @@ module.exports = {
                         /[A-Z]/.test(raw),
                         "Header must start with capital letter"
                     ]
+                },
+                "header-end-period" : ({header}) => {
+                    return [
+                        header.endsWith("."),
+                        "Header must end with period"
+                    ]
                 }
             }
         }

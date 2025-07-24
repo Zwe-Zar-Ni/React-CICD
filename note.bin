@@ -1,7 +1,5 @@
 1. Create a new react project
-
 2. Init git
-
 2. Run 
   "npm install --save-dev husky lint-staged" ,
   "npm install prettier"
@@ -37,8 +35,7 @@
   }
 
 6. Run "npm run prepare"
-
-7. in .husky/pre-commit : (create file if not exist)
+7. in .husky/pre-commit :
   #!/bin/sh
   . "$(dirname "$0")/_/husky.sh"
   npx lint-staged
@@ -63,13 +60,19 @@ Strict commits :
                           /[A-Z]/.test(raw),
                           "Header must start with capital letter"
                       ]
+                  },
+                  "header-end-period" : ({header}) => {
+                      return [
+                          header.endsWith("."),
+                          "Header must end with period"
+                      ]
                   }
               }
           }
       ]
   }
 
-4. In .husky/commit-msg : (create file if not exist)
+4. In .husky/commit-msg :
    #!/bin/sh
    . "$(dirname "$0")/_/husky.sh"
    npx --no-install commitlint --edit "$1"
