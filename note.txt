@@ -42,3 +42,34 @@
   #!/bin/sh
   . "$(dirname "$0")/_/husky.sh"
   npx lint-staged
+
+
+Strict commits : 
+1. Run "npm install --save-dev @commitlint/{cli,config-conventional}"
+2. Create "commitlint.config.cjs" in root folder
+3. Add this : 
+  module.exports = {
+      extends : [],
+      rules : {
+          "header-min-length" : [2, "always", 20],
+          "header-case-start-capital" : [2, "always"],
+          "header-end-period" : [2, "always"],
+      },
+      plugins : [
+          {
+              rules : {
+                  "header-case-start-capital" : ({raw}) => {
+                      return [
+                          /[A-Z]/.test(raw),
+                          "Header must start with capital letter"
+                      ]
+                  }
+              }
+          }
+      ]
+  }
+
+4. In .husky/commit-msg : (create file if not exist)
+   #!/bin/sh
+   . "$(dirname "$0")/_/husky.sh"
+   npx --no-install commitlint --edit "$1"
