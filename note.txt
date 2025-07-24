@@ -1,0 +1,44 @@
+1. Create a new react project
+
+2. Init git
+
+2. Run 
+  "npm install --save-dev husky lint-staged" ,
+  "npm install prettier"
+
+3. In eslint.config.js : (Also add addition rules)
+  settings: {
+    react: {
+      version: "detect"
+    }
+  }
+
+4. In package.json :
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm run lint && npm run format"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "npm run lint",
+      "npm run format"
+    ]
+  }
+
+5.  add these scripts in package.json
+  "scripts": {
+    ...,
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
+    "format": "prettier --write src",
+    "prepare": "husky"
+  }
+
+6. Run "npm run prepare"
+
+7. in .husky/pre-commit : (create file if not exist)
+  #!/bin/sh
+  . "$(dirname "$0")/_/husky.sh"
+  npx lint-staged
