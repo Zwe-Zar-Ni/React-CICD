@@ -85,3 +85,8 @@ For github workflow :
 4. Create deploy.yml file in .github/workflows
 5. Put necessary code in it
 6. push to github (and see actions tab. It should run)`
+  If deployment action fails : 
+  Click give read and write permissions of the repo in the repo's settings/actions/general/workflow permissions
+7. Go to pages - select gh-pages branch - select root folder - click save
+  it will start another actions, see in actions tab
+8. Go to vite.config.js and change base to "/the last part of the url of the page. For example if the url is https://vaddshah.github.io/react-cicd/ , base will be "/react-cicd/"
