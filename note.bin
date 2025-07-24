@@ -80,3 +80,8 @@ Strict commits :
 
 For github workflow : 
 1. Create a new "ci.yml" workflow file in .github/workflows
+2. Put necessary code in it
+3. push to github (and see actions tab. It should run)
+4. Create deploy.yml file in .github/workflows
+5. Put necessary code in it
+6. push to github (and see actions tab. It should run)`
