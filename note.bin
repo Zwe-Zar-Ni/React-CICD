@@ -76,3 +76,7 @@ Strict commits :
    #!/bin/sh
    . "$(dirname "$0")/_/husky.sh"
    npx --no-install commitlint --edit "$1"
+
+
+For github workflow : 
+1. Create a new "ci.yml" workflow file in .github/workflows
