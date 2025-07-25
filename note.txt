@@ -81,9 +81,77 @@ Strict commits :
 For github workflow : 
 1. Create a new "ci.yml" workflow file in .github/workflows
 2. Put necessary code in it
+ Example : 
+  name: CI
+  on:
+    push:
+      branches: [main]
+    pull_request:
+      branches: [main]
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+          with:
+            fetch-depth: 0
+        - name: Set up Node.js
+          uses: actions/setup-node@v2
+          with:
+            node-version: "22.17.0"
+
+        - name: Install dependencies
+          run: npm install
+
+        - name: Run lint
+          run: npm run lint
+
+        - name: Run Format
+          run: npm run format
+
+        - name: Check commits
+          uses: wagoid/commitlint-github-action@v5
+          with:
+            configFile: "commitlint.config.cjs"
+
 3. push to github (and see actions tab. It should run)
 4. Create deploy.yml file in .github/workflows
 5. Put necessary code in it
+ Example :
+    name: CD
+    on:
+      push:
+        branches:
+          - main
+      pull_request:
+        branches:
+          - main
+    jobs:
+      build-and-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+          - uses: actions/checkout@v2
+            with:
+              persist-credentials: false
+
+          - name: Set up Node.js
+            uses: actions/setup-node@v2
+            with:
+              node-version: "22.17.0"
+
+          - name: Install dependencies
+            run: npm install
+
+          - name: Build
+            run: npm run build
+
+          - name: Deploy to production
+            if: github.ref == 'refs/heads/main'
+            uses: JamesIves/github-pages-deploy-action@4.1.4
+            with:
+              branch: gh-pages
+              folder: dist
 6. push to github (and see actions tab. It should run)`
   If deployment action fails : 
   Click give read and write permissions of the repo in the repo's settings/actions/general/workflow permissions
