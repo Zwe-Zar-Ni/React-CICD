@@ -187,6 +187,7 @@ jobs:
 ```
 base: "/your-repo-name/"  // e.g., "/react-cicd/"
 ```
+```mermaid
 graph TD
     A[Local Development] --> B[Commit with Validation]
     B --> C[CI Pipeline Runs]
@@ -195,3 +196,4 @@ graph TD
     D -->|Fail| F[Developer Notification]
     E --> G[Build Production]
     G --> H[Deploy to GitHub Pages]
+```
